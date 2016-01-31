@@ -110,7 +110,17 @@ namespace MediaBrowser.Common.Implementations.Security
         /// <returns>Task{MBRegistrationRecord}.</returns>
         public Task<MBRegistrationRecord> GetRegistrationStatus(string feature, string mb2Equivalent = null)
         {
-            return GetRegistrationStatusInternal(feature, mb2Equivalent);
+            return Task.Run(() => 
+            new MBRegistrationRecord
+            {
+                IsRegistered = true,
+                ExpirationDate = DateTime.Now.AddDays(300000),
+                RegChecked = true,
+                RegError = false,
+                TrialVersion = false,
+                IsValid = true
+            });
+
         }
 
         /// <summary>
